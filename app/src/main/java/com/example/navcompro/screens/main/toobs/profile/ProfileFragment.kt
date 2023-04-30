@@ -3,7 +3,7 @@ package com.example.navcompro.screens.main.toobs.profile
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.example.navcompro.R
+
 import com.example.navcompro.*
 import com.example.navcompro.databinding.FragmentProfileBinding
 import com.example.navcompro.model.accounts.entities.Account

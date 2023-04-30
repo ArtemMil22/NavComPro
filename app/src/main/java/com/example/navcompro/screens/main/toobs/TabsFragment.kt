@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.navcompro.R
+
 import com.example.navcompro.databinding.FragmentTabsBinding
 
 class TabsFragment : Fragment(R.layout.fragment_tabs) {

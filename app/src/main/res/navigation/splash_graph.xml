@@ -11,6 +11,7 @@
         android:name="com.example.navcompro.screens.splash.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
+
         <action
             android:id="@+id/action_splashFragment_to_mainActivity"
             app:destination="@id/mainActivity" />

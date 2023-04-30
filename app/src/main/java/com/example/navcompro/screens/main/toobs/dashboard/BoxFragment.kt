@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.navcompro.R
+
 import com.example.navcompro.databinding.FragmentBoxBinding
 import com.example.navcompro.Repositories
 import com.example.navcompro.utils.observeEvent

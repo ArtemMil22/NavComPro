@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import com.example.navcompro.R
+
 import com.example.navcompro.databinding.PartDashboardItemBinding
 import com.example.navcompro.model.boxes.entities.Box
 

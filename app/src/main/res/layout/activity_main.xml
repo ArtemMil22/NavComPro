@@ -29,8 +29,6 @@
 
     </com.google.android.material.appbar.MaterialToolbar>
 
-    <!-- TODO: Just for information: you don't need to specify nav graph
-               here because it is inflated dynamically in MainActivity class -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"

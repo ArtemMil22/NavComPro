@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.navcompro.R
+
 import com.example.navcompro.Repositories
 import com.example.navcompro.databinding.FragmentSplashBinding
 import com.example.navcompro.screens.main.MainActivity
@@ -34,7 +35,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
 
         val direction =SplashFragmentDirections.actionSplashFragmentToMainActivity(isSignedIn)
-//        val args = MainActivityArgs()
+        //val args = MainActivityArgs()
         intent.putExtras(direction.arguments)
         startActivity(intent)
     }

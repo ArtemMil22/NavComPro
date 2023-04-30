@@ -7,6 +7,7 @@ import android.widget.CheckBox
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.navcompro.R
+
 import com.example.navcompro.model.boxes.entities.Box
 
 class SettingsAdapter(

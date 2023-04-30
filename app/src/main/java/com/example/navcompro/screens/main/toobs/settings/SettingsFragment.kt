@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.navcompro.R
+
 import com.example.navcompro.Repositories
 import com.example.navcompro.databinding.FragmentSettingsBinding
 import com.example.navcompro.utils.viewModelCreator

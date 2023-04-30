@@ -5,6 +5,7 @@ import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.example.navcompro.R
+
 import com.example.navcompro.Repositories
 import com.example.navcompro.databinding.FragmentDashboardBinding
 import com.example.navcompro.model.boxes.entities.Box

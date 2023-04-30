@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 
 typealias ViewModelCreator<VM> = () -> VM
 
+@Suppress("UNCHECKED_CAST")
 class ViewModelFactory<VM : ViewModel>(
     private val viewModelCreator: ViewModelCreator<VM>
 ) : ViewModelProvider.Factory {
