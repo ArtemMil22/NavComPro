@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navOptions
 import com.example.navcompro.R
 import com.example.navcompro.databinding.FragmentSignInBinding
 import com.example.navcompro.Repositories
@@ -72,14 +71,9 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
 
     private fun onSignUpButtonPressed() {
         val email = binding.emailEditText.text.toString()
-        val emailArg = if (email.isBlank())
-            null
-        else {
-            email
-        }
-
+        val emailArg = email.ifBlank { null }
         // user want to create a new account
-        TODO("Launch SignUpFragment here and send emailArg to it")
+        val direction = SignInFragmentDirections.actionSignInFragmentToSignUpFragment(emailArg)
+        findNavController().navigate(direction)
     }
-
 }
