@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navOptions
 import com.example.navcompro.R
 import com.example.navcompro.databinding.FragmentSignInBinding
 import com.example.navcompro.Repositories
@@ -57,7 +59,15 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
 
     private fun observeNavigateToTabsEvent() = viewModel.navigateToTabsEvent.observeEvent(viewLifecycleOwner) {
         // user has signed in successfully
-        TODO("Replace SignInFragment by TabsFragment here")
+       findNavController().navigate(
+           R.id.action_signInFragment_to_tabsFragment
+//           null,
+//           navOptions {
+//            popUpTo(R.id.signInFragment){
+//                inclusive = true
+//            }
+//       }
+       )
     }
 
     private fun onSignUpButtonPressed() {
