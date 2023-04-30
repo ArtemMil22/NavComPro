@@ -3,6 +3,9 @@ package com.example.navcompro.screens.main.toobs.dashboard
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavArgs
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.navcompro.R
 
 import com.example.navcompro.databinding.FragmentBoxBinding
@@ -15,6 +18,8 @@ import com.example.navcompro.views.DashboardItemView
 class BoxFragment : Fragment(R.layout.fragment_box) {
 
     private lateinit var binding: FragmentBoxBinding
+
+    private val args by navArgs<BoxFragmentArgs>()
 
     private val viewModel by viewModelCreator { BoxViewModel(getBoxId(), Repositories.boxesRepository) }
 
@@ -31,26 +36,26 @@ class BoxFragment : Fragment(R.layout.fragment_box) {
     }
 
     private fun onGoBackButtonPressed() {
-        TODO("Go back to the previous screen here")
+       findNavController().popBackStack()
     }
 
     private fun listenShouldExitEvent() = viewModel.shouldExitEvent.observeEvent(viewLifecycleOwner) { shouldExit ->
         if (shouldExit) {
             // close the screen if the box has been deactivated
-            TODO("Go back to the previous screen here")
+          findNavController().popBackStack()
         }
     }
 
-    private fun getBoxId(): Int {
-        TODO("Extract box id from arguments here")
-    }
+    private fun getBoxId(): Int = args.boxId
+        //"Extract box id from arguments here")
 
-    private fun getColorValue(): Int {
-        TODO("Extract color value from arguments here")
-    }
 
-    private fun getColorName(): String {
-        TODO("Extract color name from arguments here")
-    }
+    private fun getColorValue(): Int = args.colorValue
+        // "Extract color value from arguments here")
+
+
+    private fun getColorName(): String = args.colorName
+        //"Extract color name from arguments here")
+
 
 }

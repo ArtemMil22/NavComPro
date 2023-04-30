@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.navcompro.R
 
 import com.example.navcompro.Repositories
@@ -65,8 +66,14 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
 
     private val boxClickListener = View.OnClickListener {
         val box = it.tag as Box
-        TODO("Launch BoxFragment and send box.id, box.colorValue and color name as it's arguments. " +
-                "BoxFragment should be placed inside the current tab (tabs should be available from BoxFragment)")
+        val direction = DashboardFragmentDirections.actionDashboardFragmentToBoxFragment(
+            box.id,
+            getString(box.colorNameRes),
+            box.colorValue
+        )
+        findNavController().navigate(direction)
+        //"Launch BoxFragment and send box.id, box.colorValue and color name as it's arguments. " +
+             //   "BoxFragment should be placed inside the current tab (tabs should be available from BoxFragment)")
     }
 
 }

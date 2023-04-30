@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
-        setSupportActionBar(binding.toolbar)
+       // setSupportActionBar(binding.toolbar)
 
         // preparing root nav controller
         val navController = getRootNavController()
@@ -138,7 +138,7 @@ class MainActivity : AppCompatActivity() {
         return args.isSignedIn
     }
 
-    private fun getMainNavigationGraphId(): Int = R.id.main_graph
+    private fun getMainNavigationGraphId(): Int = R.navigation.main_graph
 
     private fun getTabsDestination(): Int = R.id.tabsFragment
 

@@ -8,6 +8,7 @@ import com.example.navcompro.R
 
 import com.example.navcompro.Repositories
 import com.example.navcompro.databinding.FragmentEditProfileBinding
+import com.example.navcompro.utils.findTopNavController
 import com.example.navcompro.utils.observeEvent
 import com.example.navcompro.utils.viewModelCreator
 
@@ -54,10 +55,12 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
     }
 
     private fun onCancelButtonPressed() {
-        TODO("Go back to the previous screen here")
+        findTopNavController().popBackStack()
+        //"Go back to the previous screen here")
     }
 
     private fun observeGoBackEvent() = viewModel.goBackEvent.observeEvent(viewLifecycleOwner) {
-        TODO("Go back to the previous screen here")
+     findTopNavController().popBackStack()
+    //"Go back to the previous screen here")
     }
 }

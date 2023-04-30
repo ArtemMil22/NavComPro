@@ -23,7 +23,7 @@ class TabsFragment : Fragment(R.layout.fragment_tabs) {
 
 
 
-        TODO("Connect Nav Component to the BottomNavigationView here")
+      //  "Connect Nav Component to the BottomNavigationView here")
     }
 
 }

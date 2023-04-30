@@ -19,5 +19,15 @@
         android:id="@+id/boxFragment"
         android:name="com.example.navcompro.screens.main.toobs.dashboard.BoxFragment"
         android:label="fragment_box"
-        tools:layout="@layout/fragment_box" />
+        tools:layout="@layout/fragment_box" >
+        <argument
+            android:name="boxId"
+            app:argType="integer" />
+        <argument
+            android:name="colorName"
+            app:argType="string" />
+        <argument
+            android:name="colorValue"
+            app:argType="integer" />
+    </fragment>
 </navigation>
