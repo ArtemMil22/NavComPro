@@ -1,11 +1,11 @@
-package com.example.navcompro.tabs.model.accounts
+package com.example.navcompro.model.accounts
 
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import com.example.navcompro.tabs.model.*
+import com.example.navcompro.model.*
 import com.example.navcompro.model.accounts.entities.Account
-import com.example.navcompro.tabs.model.accounts.entities.SignUpData
+import com.example.navcompro.model.accounts.entities.SignUpData
 
 /**
  * Simple implementation of [AccountsRepository] which holds accounts data in the app memory.

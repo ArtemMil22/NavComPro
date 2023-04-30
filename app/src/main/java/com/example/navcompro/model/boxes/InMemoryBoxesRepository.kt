@@ -1,10 +1,10 @@
-package com.example.navcompro.tabs.model.boxes
+package com.example.navcompro.model.boxes
 
 import android.graphics.Color
 import com.example.navcompro.R
 import kotlinx.coroutines.flow.*
-import com.example.navcompro.tabs.model.accounts.AccountsRepository
-import com.example.navcompro.tabs.model.boxes.entities.Box
+import com.example.navcompro.model.accounts.AccountsRepository
+import com.example.navcompro.model.boxes.entities.Box
 
 class InMemoryBoxesRepository(
     private val accountsRepository: AccountsRepository

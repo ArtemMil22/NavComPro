@@ -1,4 +1,4 @@
-package com.example.navcompro.tabs.screens.main
+package com.example.navcompro.screens.main
 
 import android.os.Bundle
 import android.view.View
@@ -10,10 +10,10 @@ import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.example.navcompro.R
-import com.example.navcompro.tabs.Repositories
+import com.example.navcompro.Repositories
 import com.example.navcompro.databinding.ActivityMainBinding
-import com.example.navcompro.tabs.screens.main.tabs.TabsFragment
-import com.example.navcompro.tabs.utils.viewModelCreator
+import com.example.navcompro.screens.main.toobs.TabsFragment
+import com.example.navcompro.utils.viewModelCreator
 import java.util.regex.Pattern
 
 /**

@@ -1,14 +1,13 @@
-package com.example.navcompro.tabs.screens.main.tabs.settings
+package com.example.navcompro.screens.main.toobs.settings
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
-import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.navcompro.R
-import com.example.navcompro.tabs.model.boxes.entities.Box
+import com.example.navcompro.model.boxes.entities.Box
 
 class SettingsAdapter(
     private val listener: Listener

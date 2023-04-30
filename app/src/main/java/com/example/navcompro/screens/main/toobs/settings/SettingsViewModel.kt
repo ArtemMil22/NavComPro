@@ -1,11 +1,11 @@
-package com.example.navcompro.tabs.screens.main.tabs.settings
+package com.example.navcompro.screens.main.toobs.settings
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.navcompro.tabs.model.boxes.BoxesRepository
-import com.example.navcompro.tabs.model.boxes.entities.Box
-import com.example.navcompro.tabs.utils.share
+import com.example.navcompro.model.boxes.BoxesRepository
+import com.example.navcompro.model.boxes.entities.Box
+import com.example.navcompro.utils.share
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 

@@ -1,4 +1,4 @@
-package com.example.navcompro.tabs.utils
+package com.example.navcompro.utils
 
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels

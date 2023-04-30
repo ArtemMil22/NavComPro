@@ -1,8 +1,9 @@
-package com.example.navcompro.tabs.model.accounts.entities
+package com.example.navcompro.model.accounts.entities
 
-import com.example.navcompro.tabs.model.EmptyFieldException
-import com.example.navcompro.tabs.model.Field
-import com.example.navcompro.tabs.model.PasswordMismatchException
+import com.example.navcompro.model.EmptyFieldException
+import com.example.navcompro.model.Field
+import com.example.navcompro.model.PasswordMismatchException
+
 
 /**
  * Fields that should be provided during creating a new account.

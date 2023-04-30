@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".screens.main.tabs.dashboard.BoxFragment">
+    tools:context=".screens.main.toobs.dashboard.BoxFragment">
 
     <TextView
         android:id="@+id/boxTextView"

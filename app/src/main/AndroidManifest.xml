@@ -12,7 +12,7 @@
         android:theme="@style/Theme.NavComPro"
         tools:targetApi="31">
         <activity
-            android:name="com.example.navcompro.tabs.SplashActivity"
+            android:name="com.example.navcompro.SplashActivity"
             android:theme="@style/SplashActivity"
             android:exported="true">
             <intent-filter>
@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.example.navcompro.tabs.screens.main.MainActivity" />
+        <activity android:name="com.example.navcompro.screens.main.MainActivity" />
 
     </application>
 

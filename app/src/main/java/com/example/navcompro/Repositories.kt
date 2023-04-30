@@ -1,9 +1,9 @@
-package com.example.navcompro.tabs
+package com.example.navcompro
 
-import com.example.navcompro.tabs.model.accounts.AccountsRepository
-import com.example.navcompro.tabs.model.accounts.InMemoryAccountsRepository
-import com.example.navcompro.tabs.model.boxes.BoxesRepository
-import com.example.navcompro.tabs.model.boxes.InMemoryBoxesRepository
+import com.example.navcompro.model.accounts.AccountsRepository
+import com.example.navcompro.model.accounts.InMemoryAccountsRepository
+import com.example.navcompro.model.boxes.BoxesRepository
+import com.example.navcompro.model.boxes.InMemoryBoxesRepository
 
 object Repositories {
 

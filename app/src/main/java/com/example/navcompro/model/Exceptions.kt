@@ -1,4 +1,4 @@
-package com.example.navcompro.tabs.model
+package com.example.navcompro.model
 
 open class AppException : RuntimeException()
 

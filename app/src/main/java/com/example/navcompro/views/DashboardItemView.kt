@@ -1,4 +1,4 @@
-package com.example.navcompro.tabs.views
+package com.example.navcompro.views
 
 import android.content.Context
 import android.content.res.ColorStateList
@@ -11,7 +11,7 @@ import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import com.example.navcompro.R
 import com.example.navcompro.databinding.PartDashboardItemBinding
-import com.example.navcompro.tabs.model.boxes.entities.Box
+import com.example.navcompro.model.boxes.entities.Box
 
 class DashboardItemView(
     context: Context,

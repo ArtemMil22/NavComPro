@@ -1,4 +1,4 @@
-package com.example.navcompro.tabs.utils
+package com.example.navcompro.utils
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController

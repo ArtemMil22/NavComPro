@@ -1,4 +1,4 @@
-package com.example.navcompro.tabs.screens.main.tabs
+package com.example.navcompro.screens.main.toobs
 
 import android.os.Bundle
 import android.view.View

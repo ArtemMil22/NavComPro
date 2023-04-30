@@ -1,4 +1,4 @@
-package com.example.navcompro.tabs.screens.main.auth
+package com.example.navcompro.screens.main.auth
 
 import android.os.Bundle
 import android.view.View
@@ -6,9 +6,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.navcompro.R
 import com.example.navcompro.databinding.FragmentSignInBinding
-import com.example.navcompro.tabs.Repositories
-import com.example.navcompro.tabs.utils.observeEvent
-import com.example.navcompro.tabs.utils.viewModelCreator
+import com.example.navcompro.Repositories
+import com.example.navcompro.utils.observeEvent
+import com.example.navcompro.utils.viewModelCreator
 
 
 class SignInFragment : Fragment(R.layout.fragment_sign_in) {

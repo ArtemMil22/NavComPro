@@ -1,15 +1,14 @@
-package com.example.navcompro.tabs.screens.main.tabs.profile
+package com.example.navcompro.screens.main.toobs.profile
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import com.example.navcompro.tabs.model.accounts.AccountsRepository
+import com.example.navcompro.model.accounts.AccountsRepository
 import com.example.navcompro.model.accounts.entities.Account
-import com.example.navcompro.tabs.utils.MutableLiveEvent
-import com.example.navcompro.tabs.utils.publishEvent
-import com.example.navcompro.tabs.utils.share
+import com.example.navcompro.utils.MutableLiveEvent
+import com.example.navcompro.utils.publishEvent
+import com.example.navcompro.utils.share
 
 class ProfileViewModel(
     private val accountsRepository: AccountsRepository
