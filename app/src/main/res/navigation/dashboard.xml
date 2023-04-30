@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.example.navcompro.screens.main.toobs.dashboard.DashboardFragment"
-        android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard" >
+        android:label="Dashboard"
+        tools:layout="@layout/fragment_dashboard">
 
         <action
             android:id="@+id/action_dashboardFragment_to_boxFragment"
@@ -18,8 +18,8 @@
     <fragment
         android:id="@+id/boxFragment"
         android:name="com.example.navcompro.screens.main.toobs.dashboard.BoxFragment"
-        android:label="fragment_box"
-        tools:layout="@layout/fragment_box" >
+        android:label="{colorName} Box"
+        tools:layout="@layout/fragment_box">
         <argument
             android:name="boxId"
             app:argType="integer" />

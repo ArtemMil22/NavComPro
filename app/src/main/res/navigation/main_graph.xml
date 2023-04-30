@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/signInFragment"
         android:name="com.example.navcompro.screens.main.auth.SignInFragment"
-        android:label="fragment_sign_in"
-        tools:layout="@layout/fragment_sign_in" >
+        android:label="Sing In"
+        tools:layout="@layout/fragment_sign_in">
 
         <action
             android:id="@+id/action_signInFragment_to_signUpFragment"
@@ -32,13 +32,13 @@
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.example.navcompro.screens.main.toobs.profile.EditProfileFragment"
-        android:label="fragment_edit_profile"
+        android:label="Edit profile"
         tools:layout="@layout/fragment_edit_profile" />
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.example.navcompro.screens.main.auth.SignUpFragment"
-        android:label="fragment_sign_up"
-        tools:layout="@layout/fragment_sign_up" >
+        android:label="Create account"
+        tools:layout="@layout/fragment_sign_up">
         <argument
             android:name="email"
             app:argType="string"
