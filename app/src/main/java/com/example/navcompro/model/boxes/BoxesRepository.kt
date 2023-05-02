@@ -9,7 +9,7 @@ interface BoxesRepository {
      * Get the list of boxes.
      * @param onlyActive if set to `true` then only active boxes are emitted.
      */
-    fun getBoxes(onlyActive: Boolean = false): Flow<List<Box>>
+    suspend fun getBoxes(onlyActive: Boolean = false): Flow<List<Box>>
 
     /**
      * Mark the specified box as active. Only active boxes are displayed in dashboard screen.

@@ -1,8 +1,13 @@
 package com.example.navcompro.model.boxes
 
+import android.database.Cursor
+import android.database.sqlite.SQLiteDatabase
+import com.example.navcompro.model.AuthException
 import kotlinx.coroutines.flow.*
 import com.example.navcompro.model.accounts.AccountsRepository
 import com.example.navcompro.model.boxes.entities.Box
+import com.example.navcompro.model.sqlite.wrapSQLiteException
+import kotlinx.coroutines.CoroutineDispatcher
 
 class SQLiteBoxesRepository(
     private val db: SQLiteDatabase,
