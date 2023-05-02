@@ -1,6 +1,9 @@
 package com.example.navcompro.model.accounts
 
+import android.database.sqlite.SQLiteConstraintException
 import android.database.sqlite.SQLiteDatabase
+import androidx.core.content.contentValuesOf
+import com.example.navcompro.model.AccountAlreadyExistsException
 import com.example.navcompro.model.AuthException
 import com.example.navcompro.model.EmptyFieldException
 import com.example.navcompro.model.Field
@@ -18,9 +21,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import java.sql.SQLClientInfoException
 
-/**
- * Simple implementation of [AccountsRepository] which holds accounts data in the app memory.
- */
+
 class SQLiteAccountsRepository(
     private val db: SQLiteDatabase,
     private val appSettings: AppSettings,
@@ -108,28 +109,61 @@ class SQLiteAccountsRepository(
     }
 
     private fun createAccount(signUpData: SignUpData) {
-    db.insertOrThrow()
         try{
-
-        }catch (e:SQLClientInfoException){
-
+            db.insertOrThrow(
+                AccountsTable.TABLE_NAME,
+                null,
+                contentValuesOf(
+                    AccountsTable.COLUMN_EMAIL to signUpData.email,
+                    AccountsTable.COLUMN_USERNAME to signUpData.username,
+                    AccountsTable.COLUMN_PASSWORD to signUpData.password,
+                    AccountsTable.COLUMN_CREATED_AT to System.currentTimeMillis()
+                )
+            )
+        }catch (e:SQLiteConstraintException){
+            val appException = AccountAlreadyExistsException()
+            appException.initCause(e)
+            throw appException
         }
     }
 
     private fun getAccountById(accountId: Long): Account? {
-        TODO(
-            "#5 \n " +
-                    "1) Fetch account data by ID from the database \n" +
-                    "2) Return NULL if accountId = AppSettings.NO_ACCOUNT_ID or there is no row with such ID in the database \n" +
-                    "3) Do not forget to close Cursor"
+        if(accountId == AppSettings.NO_ACCOUNT_ID) return null
+        val cursor = db.query(
+            AccountsTable.TABLE_NAME,
+            arrayOf(
+                AccountsTable.COLUMN_ID,
+                AccountsTable.COLUMN_EMAIL,
+                AccountsTable.COLUMN_USERNAME,
+                AccountsTable.COLUMN_CREATED_AT
+            ),
+            "${AccountsTable.COLUMN_ID} = ?",
+            arrayOf(accountId.toString()),
+            null,null,null
         )
+        return cursor.use {
+            if (cursor.count == 0) return@use null
+            cursor.moveToFirst()
+            Account(
+                id = cursor.getLong(cursor.getColumnIndexOrThrow(AccountsTable.COLUMN_ID)),
+                username = cursor.getString(cursor.getColumnIndexOrThrow(AccountsTable.COLUMN_USERNAME)),
+                email = cursor.getString(cursor.getColumnIndexOrThrow(AccountsTable.COLUMN_EMAIL)),
+                createdAt = cursor.getLong(cursor.getColumnIndexOrThrow(AccountsTable.COLUMN_CREATED_AT))
+            )
+        }
     }
 
     private fun updateUsernameForAccountId(accountId: Long, newUsername: String) {
-        TODO(
-            "#6 \n " +
-                    "Update username column of the row with the specified account ID"
-        )
+       db.update(
+           AccountsTable.TABLE_NAME,
+           contentValuesOf(
+               AccountsTable.COLUMN_USERNAME to newUsername
+           ),
+           // условие выборки
+       "${AccountsTable.COLUMN_ID} = ?",
+           // подставляем accountID, вместо ?
+       arrayOf(accountId.toString())
+       )
     }
 
     private class AccountId(val value: Long)
