@@ -1,20 +1,22 @@
 package com.example.navcompro.model.accounts
 
 import android.database.sqlite.SQLiteDatabase
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import com.example.navcompro.model.*
+import com.example.navcompro.model.AuthException
+import com.example.navcompro.model.EmptyFieldException
+import com.example.navcompro.model.Field
 import com.example.navcompro.model.accounts.entities.Account
 import com.example.navcompro.model.accounts.entities.SignUpData
 import com.example.navcompro.model.settings.AppSettings
-import com.example.navcompro.model.sqlite.AppSQLiteContract
 import com.example.navcompro.model.sqlite.AppSQLiteContract.AccountsTable
 import com.example.navcompro.model.sqlite.wrapSQLiteException
 import com.example.navcompro.utils.AsyncLoader
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import java.sql.SQLClientInfoException
 
 /**
  * Simple implementation of [AccountsRepository] which holds accounts data in the app memory.
@@ -106,13 +108,12 @@ class SQLiteAccountsRepository(
     }
 
     private fun createAccount(signUpData: SignUpData) {
-        TODO(
-            "#4 \n " +
-                    "1) Insert a new row into accounts table here using data provided by SignUpData class \n" +
-                    "2) throw AccountAlreadyExistsException if there is another account with such email in the database \n" +
+    db.insertOrThrow()
+        try{
 
-                    "Tip: use SQLiteDatabase.insertOrThrow method and surround it with try-catch(e: SQLiteConstraintException)"
-        )
+        }catch (e:SQLClientInfoException){
+
+        }
     }
 
     private fun getAccountById(accountId: Long): Account? {
