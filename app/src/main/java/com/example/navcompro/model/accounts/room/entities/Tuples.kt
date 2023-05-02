@@ -12,7 +12,7 @@ data class AccountSignInTuple(
 //  Such tuples should contain a primary key ('id') in order to notify
 //  Room which row you want to update and fields to be updated
 //  ('username' is this case).
-class AccountUpdateUsernameTuple(
+data class AccountUpdateUsernameTuple(
     val id: Long,
     val username: String,
 )
