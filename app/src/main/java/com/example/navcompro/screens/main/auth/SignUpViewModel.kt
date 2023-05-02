@@ -1,20 +1,20 @@
-package com.example.navcompro.tabs.screens.main.auth
+package com.example.navcompro.screens.main.auth
 
 import androidx.annotation.StringRes
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.navcompro.R
-import com.example.navcompro.tabs.model.AccountAlreadyExistsException
-import com.example.navcompro.tabs.model.EmptyFieldException
-import com.example.navcompro.tabs.model.Field
-import com.example.navcompro.tabs.model.PasswordMismatchException
-import com.example.navcompro.tabs.model.accounts.AccountsRepository
-import com.example.navcompro.tabs.model.accounts.entities.SignUpData
-import com.example.navcompro.tabs.utils.MutableUnitLiveEvent
-import com.example.navcompro.tabs.utils.publishEvent
-import com.example.navcompro.tabs.utils.requireValue
-import com.example.navcompro.tabs.utils.share
+import com.example.navcompro.model.AccountAlreadyExistsException
+import com.example.navcompro.model.EmptyFieldException
+import com.example.navcompro.model.Field
+import com.example.navcompro.model.PasswordMismatchException
+import com.example.navcompro.model.accounts.AccountsRepository
+import com.example.navcompro.model.accounts.entities.SignUpData
+import com.example.navcompro.utils.MutableUnitLiveEvent
+import com.example.navcompro.utils.publishEvent
+import com.example.navcompro.utils.requireValue
+import com.example.navcompro.utils.share
 import kotlinx.coroutines.launch
 
 class SignUpViewModel(

@@ -1,14 +1,44 @@
-package com.example.navcompro.tabs
+package com.example.navcompro
 
-import com.example.navcompro.tabs.model.accounts.AccountsRepository
-import com.example.navcompro.tabs.model.accounts.InMemoryAccountsRepository
-import com.example.navcompro.tabs.model.boxes.BoxesRepository
-import com.example.navcompro.tabs.model.boxes.InMemoryBoxesRepository
+import android.content.Context
+import android.database.sqlite.SQLiteDatabase
+import com.example.navcompro.model.accounts.AccountsRepository
+import com.example.navcompro.model.accounts.SQLiteAccountsRepository
+import com.example.navcompro.model.boxes.BoxesRepository
+import com.example.navcompro.model.boxes.SQLiteBoxesRepository
+import com.example.navcompro.model.settings.AppSettings
+import com.example.navcompro.model.settings.SharedPreferencesAppSettings
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 
 object Repositories {
 
-    val accountsRepository: AccountsRepository = InMemoryAccountsRepository()
+    private lateinit var applicationContext: Context
 
-    val boxesRepository: BoxesRepository = InMemoryBoxesRepository(accountsRepository)
+    // -- stuffs
 
+    private val database: SQLiteDatabase by lazy<SQLiteDatabase> {
+        TODO("#2 \n"
+                + "Create a writable SQLiteDatabase object by using AppSQLiteHelper")
+    }
+
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+
+    private val appSettings: AppSettings by lazy {
+        SharedPreferencesAppSettings(applicationContext)
+    }
+
+    // --- repositories
+
+    val accountsRepository: AccountsRepository by lazy {
+        SQLiteAccountsRepository(database, appSettings, ioDispatcher)
+    }
+
+    val boxesRepository: BoxesRepository by lazy {
+        SQLiteBoxesRepository(database, accountsRepository, ioDispatcher)
+    }
+
+    fun init(context: Context) {
+        applicationContext = context
+    }
 }

@@ -1,13 +1,14 @@
-package com.example.navcompro.tabs.screens.main.tabs.settings
+package com.example.navcompro.screens.main.toobs.settings
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.navcompro.R
-import com.example.navcompro.tabs.Repositories
+
+import com.example.navcompro.Repositories
 import com.example.navcompro.databinding.FragmentSettingsBinding
-import com.example.navcompro.tabs.utils.viewModelCreator
+import com.example.navcompro.utils.viewModelCreator
 
 class SettingsFragment : Fragment(R.layout.fragment_settings) {
 

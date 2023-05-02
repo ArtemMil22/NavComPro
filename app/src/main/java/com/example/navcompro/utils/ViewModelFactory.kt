@@ -1,4 +1,4 @@
-package com.example.navcompro.tabs.utils
+package com.example.navcompro.utils
 
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 
 typealias ViewModelCreator<VM> = () -> VM
 
+@Suppress("UNCHECKED_CAST")
 class ViewModelFactory<VM : ViewModel>(
     private val viewModelCreator: ViewModelCreator<VM>
 ) : ViewModelProvider.Factory {

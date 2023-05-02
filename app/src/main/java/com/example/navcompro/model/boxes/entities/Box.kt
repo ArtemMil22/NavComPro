@@ -1,4 +1,4 @@
-package com.example.navcompro.tabs.model.boxes.entities
+package com.example.navcompro.model.boxes.entities
 
 import androidx.annotation.StringRes
 

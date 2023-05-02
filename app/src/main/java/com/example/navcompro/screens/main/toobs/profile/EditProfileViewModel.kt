@@ -1,4 +1,4 @@
-package com.example.navcompro.tabs.screens.main.tabs.profile
+package com.example.navcompro.screens.main.toobs.profile
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -6,12 +6,12 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import com.example.navcompro.tabs.model.EmptyFieldException
-import com.example.navcompro.tabs.model.accounts.AccountsRepository
-import com.example.navcompro.tabs.utils.MutableLiveEvent
-import com.example.navcompro.tabs.utils.MutableUnitLiveEvent
-import com.example.navcompro.tabs.utils.publishEvent
-import com.example.navcompro.tabs.utils.share
+import com.example.navcompro.model.EmptyFieldException
+import com.example.navcompro.model.accounts.AccountsRepository
+import com.example.navcompro.utils.MutableLiveEvent
+import com.example.navcompro.utils.MutableUnitLiveEvent
+import com.example.navcompro.utils.publishEvent
+import com.example.navcompro.utils.share
 
 class EditProfileViewModel(
     private val accountsRepository: AccountsRepository

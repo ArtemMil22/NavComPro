@@ -1,7 +1,7 @@
-package com.example.navcompro.tabs.model.boxes
+package com.example.navcompro.model.boxes
 
 import kotlinx.coroutines.flow.Flow
-import com.example.navcompro.tabs.model.boxes.entities.Box
+import com.example.navcompro.model.boxes.entities.Box
 
 interface BoxesRepository {
 

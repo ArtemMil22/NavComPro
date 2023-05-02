@@ -1,12 +1,12 @@
-package com.example.navcompro.tabs.screens.splash
+package com.example.navcompro.screens.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import com.example.navcompro.tabs.model.accounts.AccountsRepository
-import com.example.navcompro.tabs.utils.MutableLiveEvent
-import com.example.navcompro.tabs.utils.publishEvent
-import com.example.navcompro.tabs.utils.share
+import com.example.navcompro.model.accounts.AccountsRepository
+import com.example.navcompro.utils.MutableLiveEvent
+import com.example.navcompro.utils.publishEvent
+import com.example.navcompro.utils.share
 
 /**
  * SplashViewModel checks whether user is signed-in or not.

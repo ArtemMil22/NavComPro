@@ -1,4 +1,4 @@
-package com.example.navcompro.tabs.screens.main
+package com.example.navcompro.screens.main
 
 import android.os.Bundle
 import android.view.View
@@ -10,10 +10,11 @@ import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.example.navcompro.R
-import com.example.navcompro.tabs.Repositories
+
+import com.example.navcompro.Repositories
 import com.example.navcompro.databinding.ActivityMainBinding
-import com.example.navcompro.tabs.screens.main.tabs.TabsFragment
-import com.example.navcompro.tabs.utils.viewModelCreator
+import com.example.navcompro.screens.main.toobs.TabsFragment
+import com.example.navcompro.utils.viewModelCreator
 import java.util.regex.Pattern
 
 /**
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
-        setSupportActionBar(binding.toolbar)
+       // setSupportActionBar(binding.toolbar)
 
         // preparing root nav controller
         val navController = getRootNavController()
@@ -132,19 +133,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun isSignedIn(): Boolean {
-        TODO("Extract isSignedIn flag from extras bundle here")
+        val bundle = intent.extras ?: throw IllegalStateException("No required arguments")
+        val args = MainActivityArgs.fromBundle(bundle)
+        return args.isSignedIn
     }
 
-    private fun getMainNavigationGraphId(): Int {
-        TODO("Please create a main navigation graph and return it's ID here")
-    }
+    private fun getMainNavigationGraphId(): Int = R.navigation.main_graph
 
-    private fun getTabsDestination(): Int {
-        TODO("Please return the ID of TabsFragment destination from main graph here")
-    }
+    private fun getTabsDestination(): Int = R.id.tabsFragment
 
-    private fun getSignInDestination(): Int {
-        TODO("Please return the ID of SignInFragment destination from main graph here")
-    }
+    private fun getSignInDestination(): Int = R.id.signInFragment
 
 }

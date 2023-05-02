@@ -1,4 +1,4 @@
-package com.example.navcompro.tabs.screens.main.tabs.settings
+package com.example.navcompro.screens.main.toobs.settings
 
 import androidx.recyclerview.widget.DiffUtil
 

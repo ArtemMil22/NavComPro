@@ -1,23 +1,28 @@
-package com.example.navcompro.tabs.screens.main.auth
+package com.example.navcompro.screens.main.auth
 
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavArgs
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.textfield.TextInputLayout
 import com.example.navcompro.R
-import com.example.navcompro.tabs.Repositories
+import com.example.navcompro.Repositories
 import com.example.navcompro.databinding.FragmentSignUpBinding
-import com.example.navcompro.tabs.model.accounts.entities.SignUpData
-import com.example.navcompro.tabs.utils.observeEvent
-import com.example.navcompro.tabs.utils.viewModelCreator
+import com.example.navcompro.model.accounts.entities.SignUpData
+import com.example.navcompro.utils.observeEvent
+import com.example.navcompro.utils.viewModelCreator
 
 class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
 
     private lateinit var binding: FragmentSignUpBinding
 
     private val viewModel by viewModelCreator { SignUpViewModel(Repositories.accountsRepository) }
+
+    private val args by navArgs<SignUpFragmentArgs>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -73,10 +78,11 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
     }
 
     private fun observeGoBackEvent() = viewModel.goBackEvent.observeEvent(viewLifecycleOwner) {
-        TODO("Go back to the previous screen here")
+        findNavController().popBackStack()
     }
 
     private fun getEmailArgument(): String? {
-        TODO("Extract email value from arguments here")
+        //requiresArguments()
+        return args.email
     }
 }
