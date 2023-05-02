@@ -1,14 +1,13 @@
 package com.example.navcompro
 
 import android.content.Context
-import android.database.sqlite.SQLiteDatabase
 import com.example.navcompro.model.accounts.AccountsRepository
-import com.example.navcompro.model.accounts.SQLiteAccountsRepository
+import com.example.navcompro.model.accounts.room.RoomAccountsRepository
 import com.example.navcompro.model.boxes.BoxesRepository
-import com.example.navcompro.model.boxes.SQLiteBoxesRepository
+import com.example.navcompro.model.boxes.room.RoomBoxesRepository
+import com.example.navcompro.model.room.AppDatabase
 import com.example.navcompro.model.settings.AppSettings
 import com.example.navcompro.model.settings.SharedPreferencesAppSettings
-import com.example.navcompro.model.sqlite.AppSQLiteHelper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
@@ -16,9 +15,11 @@ object Repositories {
 
     private lateinit var applicationContext: Context
 
-    // создание нашей БД
-    private val database: SQLiteDatabase by lazy<SQLiteDatabase> {
-        AppSQLiteHelper(applicationContext).writableDatabase
+    // -- stuffs
+
+    private val database: AppDatabase by lazy<AppDatabase> {
+        TODO("#21: Create an AppDatabase instance by using Room.databaseBuilder static method. " +
+                "Use createFromAssets method to initialize a new database from the pre-packaged SQLite file from assets")
     }
 
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
@@ -30,13 +31,17 @@ object Repositories {
     // --- repositories
 
     val accountsRepository: AccountsRepository by lazy {
-        SQLiteAccountsRepository(database, appSettings, ioDispatcher)
+        RoomAccountsRepository(TODO("#22: Use AccountsDao here from AppDatabase"), appSettings, ioDispatcher)
     }
 
     val boxesRepository: BoxesRepository by lazy {
-        SQLiteBoxesRepository(database, accountsRepository, ioDispatcher)
+        RoomBoxesRepository(accountsRepository, TODO("#23: Use BoxesDao here from AppDatabase"), ioDispatcher)
     }
 
+    /**
+     * Call this method in all application components that may be created at app startup/restoring
+     * (e.g. in onCreate of activities and services)
+     */
     fun init(context: Context) {
         applicationContext = context
     }
