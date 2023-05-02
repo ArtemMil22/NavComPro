@@ -10,7 +10,7 @@ import com.example.navcompro.utils.publishEvent
 import com.example.navcompro.utils.share
 
 class BoxViewModel(
-    private val boxId: Int,
+    private val boxId: Long,
     private val boxesRepository: BoxesRepository
 ) : ViewModel() {
 

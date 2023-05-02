@@ -16,7 +16,6 @@ object Repositories {
 
     private lateinit var applicationContext: Context
 
-    // -- stuffs
     // создание нашей БД
     private val database: SQLiteDatabase by lazy<SQLiteDatabase> {
         AppSQLiteHelper(applicationContext).writableDatabase

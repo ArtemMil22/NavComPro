@@ -95,12 +95,12 @@ class SQLiteBoxesRepository(
     private fun queryBoxes(onlyActive: Boolean, accountId: Long): Cursor {
         return if (onlyActive) {
             // объеденияем две таблицы
-            val sql = "SELECT ${BoxesTable.TABLE_NAME}.*" +
-                    "FROM ${BoxesTable.TABLE_NAME}" +
-                    "LEFT JOIN ${AccountsBoxesSettingsTable.TABLE_NAME}" +
+            val sql = " SELECT ${BoxesTable.TABLE_NAME}.*" +
+                    " FROM ${BoxesTable.TABLE_NAME}" +
+                    " LEFT JOIN ${AccountsBoxesSettingsTable.TABLE_NAME}" +
                     " ON ${AccountsBoxesSettingsTable.COLUMN_BOX_ID} = ${BoxesTable.COLUMN_ID}" +
                     " AND ${AccountsBoxesSettingsTable.COLUMN_ACCOUNT_ID} = ?" +
-                    "WHERE ${AccountsBoxesSettingsTable.COLUMN_IS_ACTIVE} is NULL" +
+                    " WHERE ${AccountsBoxesSettingsTable.COLUMN_IS_ACTIVE} is NULL" +
                     " OR ${AccountsBoxesSettingsTable.COLUMN_IS_ACTIVE} = 1"
             // запрос и, что будем вставлять
                 return db.rawQuery(sql, arrayOf(accountId.toString()))

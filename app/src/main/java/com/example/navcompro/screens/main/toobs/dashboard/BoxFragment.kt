@@ -46,7 +46,7 @@ class BoxFragment : Fragment(R.layout.fragment_box) {
         }
     }
 
-    private fun getBoxId(): Int = args.boxId
+    private fun getBoxId(): Long = args.boxId
         //"Extract box id from arguments here")
 
 
