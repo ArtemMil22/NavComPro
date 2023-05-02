@@ -2,17 +2,21 @@ package com.example.navcompro.model.boxes
 
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.graphics.Color
+import androidx.core.content.contentValuesOf
 import com.example.navcompro.model.AuthException
-import kotlinx.coroutines.flow.*
 import com.example.navcompro.model.accounts.AccountsRepository
 import com.example.navcompro.model.boxes.entities.Box
+import com.example.navcompro.model.sqlite.AppSQLiteContract.AccountsBoxesSettingsTable
+import com.example.navcompro.model.sqlite.AppSQLiteContract.BoxesTable
 import com.example.navcompro.model.sqlite.wrapSQLiteException
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.*
 
 class SQLiteBoxesRepository(
     private val db: SQLiteDatabase,
     private val accountsRepository: AccountsRepository,
-    private val ioDispatcher: CoroutineDispatcher
+    private val ioDispatcher: CoroutineDispatcher,
 ) : BoxesRepository {
 
     private val reconstructFlow = MutableSharedFlow<Unit>(replay = 1).also { it.tryEmit(Unit) }
@@ -52,29 +56,56 @@ class SQLiteBoxesRepository(
     }
 
     private fun parseBox(cursor: Cursor): Box {
-        TODO("#7 \n" +
-                "1) Get id, color name and color value from the cursor here \n" +
-                "2) Create a Box object")
+        return Box(
+            id = cursor.getLong(
+                cursor.getColumnIndexOrThrow(
+                    BoxesTable.COLUMN_ID
+                )
+            ),
+            colorName = cursor.getString(
+                cursor.getColumnIndexOrThrow(
+                    BoxesTable.COLUMN_COLOR_NAME
+                )
+            ),
+            colorValue = Color.parseColor(
+                cursor.getString(
+                    cursor.getColumnIndexOrThrow(
+                        BoxesTable.COLUMN_COLOR_VALUE
+                    )
+                )
+            )
+        )
     }
 
+    //user меняет checkBox на экране настроек
     private fun saveActiveFlag(accountId: Long, boxId: Long, isActive: Boolean) {
-        TODO("#8 \n" +
-                "Insert or update isActive flag in the accounts_boxes_settings table here \n" +
-
-                "Tip: use SQLiteDatabase.insertWithOnConflict method")
+        db.insertWithOnConflict(
+            AccountsBoxesSettingsTable.TABLE_NAME,
+            null,
+            contentValuesOf(
+                AccountsBoxesSettingsTable.COLUMN_BOX_ID to boxId,
+                AccountsBoxesSettingsTable.COLUMN_ACCOUNT_ID to accountId,
+                AccountsBoxesSettingsTable.COLUMN_IS_ACTIVE to isActive
+            ),
+            // стратегия при конфликте замена старой строки на новую
+            SQLiteDatabase.CONFLICT_REPLACE
+        )
     }
 
     private fun queryBoxes(onlyActive: Boolean, accountId: Long): Cursor {
-        if (onlyActive) {
-            TODO("#10 \n" +
-                    "Return a cursor which selects only those rows from boxes table \n" +
-                    "which doesn't have setting in the accounts_boxes_settings table or which \n" +
-                    "have such setting and it's = 1 (true) \n" +
-
-                    "Tip: use rawQuery and LEFT JOIN to combine data from 2 tables")
+        return if (onlyActive) {
+            // объеденияем две таблицы
+            val sql = "SELECT ${BoxesTable.TABLE_NAME}.*" +
+                    "FROM ${BoxesTable.TABLE_NAME}" +
+                    "LEFT JOIN ${AccountsBoxesSettingsTable.TABLE_NAME}" +
+                    " ON ${AccountsBoxesSettingsTable.COLUMN_BOX_ID} = ${BoxesTable.COLUMN_ID}" +
+                    " AND ${AccountsBoxesSettingsTable.COLUMN_ACCOUNT_ID} = ?" +
+                    "WHERE ${AccountsBoxesSettingsTable.COLUMN_IS_ACTIVE} is NULL" +
+                    " OR ${AccountsBoxesSettingsTable.COLUMN_IS_ACTIVE} = 1"
+            // запрос и, что будем вставлять
+                return db.rawQuery(sql, arrayOf(accountId.toString()))
         } else {
-            TODO("#9 \n" +
-                    "Just return a cursor with selects all rows from boxes table")
+            db.rawQuery("SELECT * FROM ${BoxesTable.TABLE_NAME}", null)
         }
     }
 }

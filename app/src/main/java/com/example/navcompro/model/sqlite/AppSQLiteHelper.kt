@@ -4,7 +4,6 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-
 //класс поможет создавать и инициализировать базу данных
 class AppSQLiteHelper(
     private val applicationContext: Context
@@ -21,7 +20,6 @@ class AppSQLiteHelper(
             .forEach{
                 //передаем инструкции на выполнение базе данных
                 db.execSQL(it)
-
             }
     }
 
@@ -29,5 +27,4 @@ class AppSQLiteHelper(
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
 
     }
-
 }

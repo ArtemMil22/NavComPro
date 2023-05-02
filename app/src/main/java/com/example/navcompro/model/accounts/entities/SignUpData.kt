@@ -4,10 +4,6 @@ import com.example.navcompro.model.EmptyFieldException
 import com.example.navcompro.model.Field
 import com.example.navcompro.model.PasswordMismatchException
 
-
-/**
- * Fields that should be provided during creating a new account.
- */
 data class SignUpData(
     val username: String,
     val email: String,
