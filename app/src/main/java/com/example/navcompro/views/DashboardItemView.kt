@@ -35,7 +35,7 @@ class DashboardItemView(
     }
 
     fun setBox(box: Box) {
-        val colorName = context.getString(box.colorNameRes)
+        val colorName = box.colorName
         val boxTitle = context.getString(R.string.box_title, colorName)
         setupTitle(boxTitle)
         setupColors(box.colorValue)

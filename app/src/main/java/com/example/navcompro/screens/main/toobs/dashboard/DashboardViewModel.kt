@@ -3,11 +3,10 @@ package com.example.navcompro.screens.main.toobs.dashboard
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import com.example.navcompro.model.boxes.BoxesRepository
 import com.example.navcompro.model.boxes.entities.Box
 import com.example.navcompro.utils.share
+import kotlinx.coroutines.launch
 
 class DashboardViewModel(
     private val boxesRepository: BoxesRepository
@@ -18,8 +17,8 @@ class DashboardViewModel(
 
     init {
         viewModelScope.launch {
-            boxesRepository.getBoxes(onlyActive = true).collect {
-                _boxes.value = it
+            boxesRepository.getBoxesAndSettings(onlyActive = true).collect { list ->
+                _boxes.value = list.map{it.box}
             }
         }
     }

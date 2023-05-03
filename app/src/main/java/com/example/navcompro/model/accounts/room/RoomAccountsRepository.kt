@@ -1,20 +1,20 @@
-package com.example.navcompro.model.accounts
+package com.example.navcompro.model.accounts.room
 
-import android.database.sqlite.SQLiteDatabase
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import com.example.navcompro.model.*
+import com.example.navcompro.model.AuthException
+import com.example.navcompro.model.EmptyFieldException
+import com.example.navcompro.model.Field
+import com.example.navcompro.model.accounts.AccountsRepository
 import com.example.navcompro.model.accounts.entities.Account
 import com.example.navcompro.model.accounts.entities.SignUpData
+import com.example.navcompro.model.room.wrapSQLiteException
 import com.example.navcompro.model.settings.AppSettings
+import com.example.navcompro.utils.AsyncLoader
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.*
 
-/**
- * Simple implementation of [AccountsRepository] which holds accounts data in the app memory.
- */
-class SQLiteAccountsRepository(
-    private val db: SQLiteDatabase,
+class RoomAccountsRepository(
+    private val accountsDao: AccountsDao,
     private val appSettings: AppSettings,
     private val ioDispatcher: CoroutineDispatcher
 ) : AccountsRepository {
@@ -54,8 +54,12 @@ class SQLiteAccountsRepository(
 
     override suspend fun getAccount(): Flow<Account?> {
         return currentAccountIdFlow.get()
-            .map { accountId ->
-                getAccountById(accountId.value)
+            .flatMapLatest { accountId ->
+                if (accountId.value == AppSettings.NO_ACCOUNT_ID) {
+                    flowOf(null)
+                } else {
+                    getAccountById(accountId.value)
+                }
             }
             .flowOn(ioDispatcher)
     }
@@ -72,31 +76,28 @@ class SQLiteAccountsRepository(
         return@wrapSQLiteException
     }
 
-    private fun findAccountIdByEmailAndPassword(email: String, password: String): Long {
-        TODO("#3 \n" +
-                "1) fetch account ID by email and password here \n" +
-                "2) throw AuthException if there is no account with such email OR password is invalid")
+    private suspend fun findAccountIdByEmailAndPassword(email: String, password: String): Long {
+        TODO("#11: use AccountsDao to fetch ID and Password by Email. " +
+                "Throw AuthException if there is no account with such email or password is invalid.")
     }
 
-    private fun createAccount(signUpData: SignUpData) {
-        TODO("#4 \n " +
-                "1) Insert a new row into accounts table here using data provided by SignUpData class \n" +
-                "2) throw AccountAlreadyExistsException if there is another account with such email in the database \n" +
-
-                "Tip: use SQLiteDatabase.insertOrThrow method and surround it with try-catch(e: SQLiteConstraintException)")
+    private suspend fun createAccount(signUpData: SignUpData) {
+        // todo #12: create a new AccountDbEntity from SignUpData here and insert it to the database by
+        //           using AccountsDao.
+        //           Catch SQLiteConstraintException and rethrow AccountAlreadyExistsException.
+        //           SQLiteConstraintException is thrown by DAO in case if there is another
+        //           account with the same email address
     }
 
-    private fun getAccountById(accountId: Long): Account? {
-        TODO("#5 \n " +
-                "1) Fetch account data by ID from the database \n" +
-                "2) Return NULL if accountId = AppSettings.NO_ACCOUNT_ID or there is no row with such ID in the database \n" +
-                "3) Do not forget to close Cursor")
+    private fun getAccountById(accountId: Long): Flow<Account?> {
+        TODO("#13: get account info by ID; do not forget to map AccountDbEntity to Account here")
     }
 
-    private fun updateUsernameForAccountId(accountId: Long, newUsername: String) {
-        TODO("#6 \n " +
-                "Update username column of the row with the specified account ID")
+    private suspend fun updateUsernameForAccountId(accountId: Long, newUsername: String) {
+        // todo #14: update username for the account with specified ID.
+        //           hint: use a tuple class created before (step #7)
     }
 
     private class AccountId(val value: Long)
+
 }

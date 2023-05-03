@@ -1,4 +1,4 @@
-package com.example.navcompro.model.sqlite
+package com.example.navcompro.model.room
 
 import android.database.sqlite.SQLiteException
 import com.example.navcompro.model.StorageException
@@ -9,7 +9,6 @@ import kotlinx.coroutines.withContext
 /**
  * Converts any [SQLiteException] into in-app [StorageException]
  */
-
 suspend fun <T> wrapSQLiteException(dispatcher: CoroutineDispatcher, block: suspend CoroutineScope.() -> T): T {
     try {
         return withContext(dispatcher, block)

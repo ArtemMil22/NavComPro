@@ -6,7 +6,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.navcompro.R
-
 import com.example.navcompro.Repositories
 import com.example.navcompro.databinding.FragmentDashboardBinding
 import com.example.navcompro.model.boxes.entities.Box
@@ -68,7 +67,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         val box = it.tag as Box
         val direction = DashboardFragmentDirections.actionDashboardFragmentToBoxFragment(
             box.id,
-            getString(box.colorNameRes),
+            box.colorName,
             box.colorValue
         )
         findNavController().navigate(direction)

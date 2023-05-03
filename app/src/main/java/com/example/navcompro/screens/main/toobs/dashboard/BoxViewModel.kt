@@ -10,7 +10,7 @@ import com.example.navcompro.utils.publishEvent
 import com.example.navcompro.utils.share
 
 class BoxViewModel(
-    private val boxId: Int,
+    private val boxId: Long,
     private val boxesRepository: BoxesRepository
 ) : ViewModel() {
 
@@ -19,8 +19,8 @@ class BoxViewModel(
 
     init {
         viewModelScope.launch {
-            boxesRepository.getBoxes(onlyActive = true)
-                .map { boxes -> boxes.firstOrNull { it.id == boxId } }
+            boxesRepository.getBoxesAndSettings(onlyActive = true)
+                .map { boxes -> boxes.firstOrNull { it.box.id == boxId } }
                 .collect { currentBox ->
                     _shouldExitEvent.publishEvent(currentBox == null)
                 }

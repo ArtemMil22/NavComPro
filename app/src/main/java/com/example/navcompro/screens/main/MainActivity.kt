@@ -63,6 +63,7 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         if (isStartDestination(navController?.currentDestination)) {
             super.onBackPressed()

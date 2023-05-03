@@ -3,13 +3,11 @@ package com.example.navcompro.screens.main.toobs.dashboard
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.navcompro.R
-
-import com.example.navcompro.databinding.FragmentBoxBinding
 import com.example.navcompro.Repositories
+import com.example.navcompro.databinding.FragmentBoxBinding
 import com.example.navcompro.utils.observeEvent
 import com.example.navcompro.utils.viewModelCreator
 import com.example.navcompro.views.DashboardItemView
@@ -46,7 +44,7 @@ class BoxFragment : Fragment(R.layout.fragment_box) {
         }
     }
 
-    private fun getBoxId(): Int = args.boxId
+    private fun getBoxId(): Long = args.boxId
         //"Extract box id from arguments here")
 
 
