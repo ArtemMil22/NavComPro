@@ -6,7 +6,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.navcompro.model.boxes.entities.Box
 
-
 @Entity(
     tableName = "boxes"
 )
