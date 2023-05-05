@@ -14,6 +14,7 @@ data class BoxDbEntity(
     @ColumnInfo(name = "color_name") val colorName:String,
     @ColumnInfo(name = "color_value") val colorValue:String
 ) {
+    // преобразование из табл БД в класс Bох
     fun toBox(): Box = Box(
         id = id,
         colorValue = Color.parseColor(colorValue),
