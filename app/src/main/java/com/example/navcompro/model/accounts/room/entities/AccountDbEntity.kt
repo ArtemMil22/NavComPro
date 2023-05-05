@@ -14,11 +14,11 @@ import com.example.navcompro.model.accounts.entities.SignUpData
     ]
 )
  data class AccountDbEntity(
-    @PrimaryKey (autoGenerate = true) val id: Long,
-    @ColumnInfo (collate = ColumnInfo.NOCASE) val email: String,
-    val username: String,
-    val password: String,
-    @ColumnInfo (name = "create_at") val createdAt: Long
+    @ColumnInfo(name = "id") @PrimaryKey (autoGenerate = true) val id: Long,
+    @ColumnInfo (name = "email", collate = ColumnInfo.NOCASE) val email: String,
+    @ColumnInfo(name = "username") val username: String,
+    @ColumnInfo(name = "password") val password: String,
+    @ColumnInfo (name = "created_at") val createdAt: Long
  ) {
 
     // маперы для быстрого преобразования данные сущности из табл
