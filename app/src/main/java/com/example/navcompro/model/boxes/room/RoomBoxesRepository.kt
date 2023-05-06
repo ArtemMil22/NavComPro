@@ -46,8 +46,8 @@ class RoomBoxesRepository(
         return boxesDao.getBoxesAndSettings(accountId)
             .map { entities ->
                 entities.map {
-                    val boxEntity = it.key
-                    val settingsEntity = it.value
+                    val boxEntity = it.boxDbEntity
+                    val settingsEntity = it.settingDbEntity
                     BoxAndSettings(
                         box = boxEntity.toBox(),
                         isActive = settingsEntity == null || settingsEntity.settings.isActive
