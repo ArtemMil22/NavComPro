@@ -1,5 +1,6 @@
 package com.example.navcompro.model.boxes.room
 
+import android.graphics.Color
 import com.example.navcompro.model.AuthException
 import com.example.navcompro.model.accounts.AccountsRepository
 import com.example.navcompro.model.boxes.BoxesRepository
@@ -46,11 +47,13 @@ class RoomBoxesRepository(
         return boxesDao.getBoxesAndSettings(accountId)
             .map { entities ->
                 entities.map {
-                    val boxEntity = it.boxDbEntity
-                    val settingsEntity = it.settingDbEntity
                     BoxAndSettings(
-                        box = boxEntity.toBox(),
-                        isActive = settingsEntity == null || settingsEntity.settings.isActive
+                        box = Box(
+                            id = it.boxId,
+                            colorName = it.colorName,
+                            colorValue = Color.parseColor(it.colorValue)
+                        ),
+                        isActive = it.settings.isActive
                     )
                 }
             }

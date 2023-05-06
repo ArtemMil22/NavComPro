@@ -7,16 +7,18 @@ import com.example.navcompro.model.accounts.room.entities.AccountDbEntity
 import com.example.navcompro.model.boxes.room.BoxesDao
 import com.example.navcompro.model.boxes.room.entities.AccountBoxSettingDbEntity
 import com.example.navcompro.model.boxes.room.entities.BoxDbEntity
+import com.example.navcompro.model.boxes.room.views.SettingDbView
 
 //  Create a database class by extending RoomDatabase.
 //  - use 'views' parameter to list all views (classes annotated with @DatabaseView)
 @Database(
-    version = 1,
+    version = 2,
     entities = [
         AccountDbEntity::class,
         BoxDbEntity::class,
         AccountBoxSettingDbEntity::class
-    ]
+    ],
+    views = [SettingDbView::class]
 )
 abstract class AppDatabase : RoomDatabase() {
 
