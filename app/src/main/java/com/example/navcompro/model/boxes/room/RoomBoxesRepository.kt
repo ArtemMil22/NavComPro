@@ -6,6 +6,7 @@ import com.example.navcompro.model.boxes.BoxesRepository
 import com.example.navcompro.model.boxes.entities.Box
 import com.example.navcompro.model.boxes.entities.BoxAndSettings
 import com.example.navcompro.model.boxes.room.entities.AccountBoxSettingDbEntity
+import com.example.navcompro.model.boxes.room.entities.SettingsTuples
 import com.example.navcompro.model.room.wrapSQLiteException
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
@@ -49,7 +50,7 @@ class RoomBoxesRepository(
                     val settingsEntity = it.value
                     BoxAndSettings(
                         box = boxEntity.toBox(),
-                        isActive = settingsEntity == null || settingsEntity.isActive
+                        isActive = settingsEntity == null || settingsEntity.settings.isActive
                     )
                 }
             }
@@ -63,7 +64,7 @@ class RoomBoxesRepository(
             AccountBoxSettingDbEntity(
                 accountId = account.id,
                 boxId = box.id,
-                isActive = isActive
+                settings = SettingsTuples(isActive = isActive)
             )
         )
     }

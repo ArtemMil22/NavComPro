@@ -1,6 +1,7 @@
 package com.example.navcompro.model.boxes.room.entities
 
 import androidx.room.ColumnInfo
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
@@ -32,5 +33,5 @@ import com.example.navcompro.model.accounts.room.entities.AccountDbEntity
 data class AccountBoxSettingDbEntity(
     @ColumnInfo(name = "account_id") val accountId: Long,
     @ColumnInfo(name = "box_id") val boxId: Long,
-    @ColumnInfo(name = "is_active") val isActive: Boolean
+    @Embedded val settings: SettingsTuples
 )
