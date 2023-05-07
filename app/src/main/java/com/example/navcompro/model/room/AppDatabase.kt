@@ -12,7 +12,7 @@ import com.example.navcompro.model.boxes.room.views.SettingDbView
 //  Create a database class by extending RoomDatabase.
 //  - use 'views' parameter to list all views (classes annotated with @DatabaseView)
 @Database(
-    version = 2,
+    version = 1,
     entities = [
         AccountDbEntity::class,
         BoxDbEntity::class,
