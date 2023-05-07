@@ -3,7 +3,9 @@ package com.example.navcompro.model.accounts.room
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
+import com.example.navcompro.model.accounts.room.entities.AccountAndEditBoxesTuple
 import com.example.navcompro.model.accounts.room.entities.AccountDbEntity
 import com.example.navcompro.model.accounts.room.entities.AccountSignInTuple
 import com.example.navcompro.model.accounts.room.entities.AccountUpdateUsernameTuple
@@ -23,4 +25,8 @@ interface AccountsDao {
 
     @Query("SELECT * FROM accounts WHERE id = :accountId")
     fun getById(accountId: Long): Flow<AccountDbEntity?>
+
+    @Transaction
+    @Query("SELECT * FROM accounts WHERE accounts.id = :accountId")
+    fun getAccountAndEditedBoxes(accountId: Long): AccountAndEditBoxesTuple
 }
