@@ -7,9 +7,11 @@ import com.example.navcompro.model.EmptyFieldException
 import com.example.navcompro.model.Field
 import com.example.navcompro.model.accounts.AccountsRepository
 import com.example.navcompro.model.accounts.entities.Account
+import com.example.navcompro.model.accounts.entities.AccountFullData
 import com.example.navcompro.model.accounts.entities.SignUpData
 import com.example.navcompro.model.accounts.room.entities.AccountDbEntity
 import com.example.navcompro.model.accounts.room.entities.AccountUpdateUsernameTuple
+import com.example.navcompro.model.boxes.entities.BoxAndSettings
 import com.example.navcompro.model.room.wrapSQLiteException
 import com.example.navcompro.model.settings.AppSettings
 import com.example.navcompro.utils.AsyncLoader
@@ -123,6 +125,27 @@ class RoomAccountsRepository(
                 username = newUsername
             )
         )
+    }
+
+    override suspend fun getAllData(): Flow<List<AccountFullData>> {
+
+        val account = getAccount().first()
+        if (account == null || !account.isAdmin()) throw AuthException()
+
+        return accountsDao.getAllData()
+            .map { accountsAndSettings ->
+                accountsAndSettings.map { accountsAndSettingsTuples ->
+                    AccountFullData(
+                        account = accountsAndSettingsTuples.accountDbEntity.toAccount(),
+                        boxesAndSettings = accountsAndSettingsTuples.settings.map {
+                            BoxAndSettings(
+                                box = it.boxDbEntity.toBox(),
+                                isActive = it.accountBoxSettingDbEntity.settings.isActive
+                            )
+                        }
+                    )
+                }
+            }
     }
 
     private class AccountId(val value: Long)

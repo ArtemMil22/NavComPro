@@ -5,6 +5,8 @@ import androidx.room.Junction
 import androidx.room.Relation
 import com.example.navcompro.model.boxes.room.entities.AccountBoxSettingDbEntity
 import com.example.navcompro.model.boxes.room.entities.BoxDbEntity
+import com.example.navcompro.model.boxes.room.entities.SettingsTuples
+import com.example.navcompro.model.boxes.room.views.SettingDbView
 
 //  Create a tuple for fetching account id + account password.
 //  Tuple classes should not be annotated with @Entity but
@@ -39,7 +41,7 @@ data class AccountAndEditBoxesTuple(
             entityColumn = "box_id"
         )
     )
-    val boxes: List<BoxDbEntity>
+    val boxes: List<BoxDbEntity>,
 )
 
 // 19 Create an AccountAndAllSettingsTuple + SettingAndBoxTuple classes (hint: both of them with
@@ -47,3 +49,22 @@ data class AccountAndEditBoxesTuple(
 //  table and also should contain a reference to the SettingAndBoxTuple. The latter should
 //  contain data from 'SettingDbView' ('is_active' flag) and also it should contain a reference
 //  to the BoxDbEntity (data from 'boxes' table).
+
+data class AccountAndAllSettingsTuple(
+    @Embedded val accountDbEntity: AccountDbEntity,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "account_id",
+        entity = SettingDbView::class
+    )
+    val settings: List<SettingAndBoxTuple>
+)
+
+data class SettingAndBoxTuple(
+    @Embedded val accountBoxSettingDbEntity: SettingDbView,
+    @Relation(
+        parentColumn = "box_id",
+        entityColumn = "id"
+    )
+    val boxDbEntity: BoxDbEntity
+)
