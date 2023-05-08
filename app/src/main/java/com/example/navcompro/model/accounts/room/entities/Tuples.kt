@@ -1,5 +1,6 @@
 package com.example.navcompro.model.accounts.room.entities
 
+import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
@@ -12,8 +13,9 @@ import com.example.navcompro.model.boxes.room.views.SettingDbView
 //  Tuple classes should not be annotated with @Entity but
 //  their fields may be annotated with @ColumnInfo.
 data class AccountSignInTuple(
-    val id: Long,
-    val password: String,
+   @ColumnInfo(name = "id") val id: Long,
+   @ColumnInfo(name = "hash") val hash: String,
+   @ColumnInfo(name = "salt") val salt: String,
 )
 
 //  Create a tuple for updating account username.

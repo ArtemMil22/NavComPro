@@ -15,6 +15,7 @@ import com.example.navcompro.model.boxes.entities.BoxAndSettings
 import com.example.navcompro.model.room.wrapSQLiteException
 import com.example.navcompro.model.settings.AppSettings
 import com.example.navcompro.utils.AsyncLoader
+import com.example.navcompro.utils.security.SecurityUtils
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
@@ -22,6 +23,7 @@ import kotlinx.coroutines.flow.*
 class RoomAccountsRepository(
     private val accountsDao: AccountsDao,
     private val appSettings: AppSettings,
+    private val securityUtils: SecurityUtils,
     private val ioDispatcher: CoroutineDispatcher,
 ) : AccountsRepository {
 
@@ -87,10 +89,15 @@ class RoomAccountsRepository(
     //" use AccountsDao to fetch ID and Password by Email. " +
     //"Throw AuthException if there is no account with such email or password is invalid.")
     private suspend fun findAccountIdByEmailAndPassword(
-        email: String, password: String,
+        email: String, password: CharArray,
     ): Long {
         val tuple = accountsDao.findByEmail(email) ?: throw AuthException()
-        if (tuple.password != password) throw AuthException()
+
+        val saltBytes = securityUtils.stringToBytes(tuple.salt)
+        val hashBytes = securityUtils.passwordToHash(password, saltBytes)
+        val hashString = securityUtils.bytesToString(hashBytes)
+        password.fill('*') // good practice is to clear passwords after usage
+        if (tuple.hash != hashString) throw AuthException()
         return tuple.id
     }
 
