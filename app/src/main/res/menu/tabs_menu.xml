@@ -10,4 +10,8 @@
         <item android:id ="@id/profile"
             android:title="@string/profile"
             android:icon="@drawable/ic_profile"/>
+        <item android:id="@id/admin"
+            android:title="@string/admin_panel"
+            android:visible="false"
+            android:icon="@drawable/ic_admin"/>
 </menu>

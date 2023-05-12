@@ -5,6 +5,7 @@ import com.example.navcompro.model.AccountAlreadyExistsException
 import com.example.navcompro.model.AuthException
 import com.example.navcompro.model.EmptyFieldException
 import com.example.navcompro.model.PasswordMismatchException
+import com.example.navcompro.model.accounts.entities.AccountFullData
 import com.example.navcompro.model.accounts.entities.SignUpData
 import kotlinx.coroutines.flow.Flow
 
@@ -45,5 +46,7 @@ interface AccountsRepository {
      * @throws [EmptyFieldException], [AuthException]
      */
     suspend fun updateAccountUsername(newUsername: String)
+
+    suspend fun getAllData():Flow<List<AccountFullData>>
 
 }

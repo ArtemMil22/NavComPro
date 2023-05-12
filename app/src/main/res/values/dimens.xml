@@ -9,4 +9,6 @@
     <dimen name="dashboard_item_width">140dp</dimen>
     <dimen name="dashboard_item_height">90dp</dimen>
 
+    <dimen name="tree_level_size">32dp</dimen>
+
 </resources>

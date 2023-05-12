@@ -37,4 +37,26 @@
     <string name="dashboard">Dashboard</string>
     <string name="settings">Settings</string>
     <string name="profile">Profile</string>
+
+    <string name="admin_panel">Admin Panel</string>
+    <string name="screen_dashboard">Dashboard</string>
+    <string name="screen_box">{colorName} Box</string>
+    <string name="screen_sign_in">Sign In</string>
+    <string name="screen_sign_up">Create Account</string>
+    <string name="screen_profile">Profile</string>
+    <string name="screen_settings">Settings</string>
+    <string name="screen_edit_profile">Edit Profile</string>
+    <string name="screen_admin_panel">Admin Panel</string>
+    <string name="storage_error">Local storage error</string>
+
+    <string name="all_accounts">All Accounts</string>
+    <string name="account_id">Account ID</string>
+    <string name="account_username">Username</string>
+    <string name="account_email">Email</string>
+    <string name="box_id">Box ID</string>
+    <string name="box_name">Color Name</string>
+    <string name="box_value">Color Value</string>
+    <string name="setting_is_active">Is Active</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

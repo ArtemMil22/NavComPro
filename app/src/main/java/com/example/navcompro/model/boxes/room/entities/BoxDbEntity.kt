@@ -1,12 +1,23 @@
 package com.example.navcompro.model.boxes.room.entities
 
+import android.graphics.Color
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.example.navcompro.model.boxes.entities.Box
 
-// todo #15: Define BoxDbEntity
-//          - fields: id, colorName, colorValue.
-//          - add toBox() method for mapping BoxDbEntity instances to Box instances.
-//          - hint: use the same annotations as for AccountDbEntity (@Entity, @PrimaryKey, @ColumnInfo).
-//          - DO NOT FORGET to add this entity to the @Database annotation of AppDatabase class
-class BoxDbEntity {
-    fun toBox(): Box = TODO()
+@Entity(
+    tableName = "boxes"
+)
+data class BoxDbEntity(
+    @PrimaryKey val id:Long,
+    @ColumnInfo(name = "color_name") val colorName:String,
+    @ColumnInfo(name = "color_value") val colorValue:String
+) {
+    // преобразование из табл БД в класс Bох
+    fun toBox(): Box = Box(
+        id = id,
+        colorValue = Color.parseColor(colorValue),
+        colorName = colorName
+    )
 }
