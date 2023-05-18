@@ -36,10 +36,10 @@ class RoomAccountsRepository(
         return appSettings.getCurrentAccountId() != AppSettings.NO_ACCOUNT_ID
     }
 
-    override suspend fun signIn(email: String, password: String) =
+    override suspend fun signIn(email: String, password: CharArray) =
         wrapSQLiteException(ioDispatcher) {
             if (email.isBlank()) throw EmptyFieldException(Field.Email)
-            if (password.isBlank()) throw EmptyFieldException(Field.Password)
+            if (password.isEmpty()) throw EmptyFieldException(Field.Password)
 
             delay(1000)
 
@@ -108,7 +108,7 @@ class RoomAccountsRepository(
     //  account with the same email address
     private suspend fun createAccount(signUpData: SignUpData) {
         try {
-            val entity = AccountDbEntity.fromSignUpData(signUpData)
+            val entity = AccountDbEntity.fromSignUpData(signUpData,securityUtils)
             accountsDao.createAccount(entity)
         } catch (e: SQLiteConstraintException) {
             val appException = AccountAlreadyExistsException()

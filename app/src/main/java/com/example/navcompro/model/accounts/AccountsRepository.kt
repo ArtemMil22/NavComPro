@@ -23,7 +23,7 @@ interface AccountsRepository {
      * Try to sign-in with the email and password.
      * @throws [EmptyFieldException], [AuthException]
      */
-    suspend fun signIn(email: String, password: String)
+    suspend fun signIn(email: String, password: CharArray)
 
     /**
      * Create a new account.

@@ -23,7 +23,8 @@ import com.example.navcompro.model.boxes.room.views.SettingDbView
     autoMigrations = [
         AutoMigration(
             from = 1,
-            to =3
+            to =2,
+            spec = AutoMigrationSpec1To2::class
         )
     ]
 )

@@ -9,6 +9,7 @@ import com.example.navcompro.R
 import com.example.navcompro.databinding.FragmentSignInBinding
 import com.example.navcompro.Repositories
 import com.example.navcompro.utils.observeEvent
+import com.example.navcompro.utils.toCharArray
 import com.example.navcompro.utils.viewModelCreator
 
 
@@ -33,13 +34,15 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
     private fun onSignInButtonPressed() {
         viewModel.signIn(
             email = binding.emailEditText.text.toString(),
-            password = binding.passwordEditText.text.toString()
+            password = binding.passwordEditText.text.toCharArray()
         )
     }
 
     private fun observeState() = viewModel.state.observe(viewLifecycleOwner) {
-        binding.emailTextInput.error = if (it.emptyEmailError) getString(R.string.field_is_empty) else null
-        binding.passwordTextInput.error = if (it.emptyPasswordError) getString(R.string.field_is_empty) else null
+        binding.emailTextInput.error =
+            if (it.emptyEmailError) getString(R.string.field_is_empty) else null
+        binding.passwordTextInput.error =
+            if (it.emptyPasswordError) getString(R.string.field_is_empty) else null
 
         binding.emailTextInput.isEnabled = it.enableViews
         binding.passwordTextInput.isEnabled = it.enableViews
@@ -48,30 +51,38 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
         binding.progressBar.visibility = if (it.showProgress) View.VISIBLE else View.INVISIBLE
     }
 
-    private fun observeShowAuthErrorMessageEvent() = viewModel.showAuthToastEvent.observeEvent(viewLifecycleOwner) {
-        Toast.makeText(requireContext(), R.string.invalid_email_or_password, Toast.LENGTH_SHORT).show()
-    }
+    private fun observeShowAuthErrorMessageEvent() =
+        viewModel.showAuthToastEvent.observeEvent(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), R.string.invalid_email_or_password, Toast.LENGTH_SHORT)
+                .show()
+        }
 
-    private fun observeClearPasswordEvent() = viewModel.clearPasswordEvent.observeEvent(viewLifecycleOwner) {
-        binding.passwordEditText.text?.clear()
-    }
+    private fun observeClearPasswordEvent() =
+        viewModel.clearPasswordEvent.observeEvent(viewLifecycleOwner) {
+            binding.passwordEditText.text?.clear()
+        }
 
-    private fun observeNavigateToTabsEvent() = viewModel.navigateToTabsEvent.observeEvent(viewLifecycleOwner) {
-        // user has signed in successfully
-       findNavController().navigate(
-           R.id.action_signInFragment_to_tabsFragment
+    private fun observeNavigateToTabsEvent() =
+        viewModel.navigateToTabsEvent.observeEvent(viewLifecycleOwner) {
+            // user has signed in successfully
+            findNavController().navigate(
+                R.id.action_signInFragment_to_tabsFragment
 //           null,
 //           navOptions {
 //            popUpTo(R.id.signInFragment){
 //                inclusive = true
 //            }
 //       }
-       )
-    }
+            )
+        }
 
     private fun onSignUpButtonPressed() {
         val email = binding.emailEditText.text.toString()
-        val emailArg = email.ifBlank { null }
+        val emailArg = if (email.isBlank())
+            null
+        else {
+            email
+        }
         // user want to create a new account
         val direction = SignInFragmentDirections.actionSignInFragmentToSignUpFragment(emailArg)
         findNavController().navigate(direction)

@@ -5,16 +5,16 @@ import android.view.View
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.textfield.TextInputLayout
 import com.example.navcompro.R
 import com.example.navcompro.Repositories
 import com.example.navcompro.databinding.FragmentSignUpBinding
 import com.example.navcompro.model.accounts.entities.SignUpData
 import com.example.navcompro.utils.observeEvent
+import com.example.navcompro.utils.toCharArray
 import com.example.navcompro.utils.viewModelCreator
+import com.google.android.material.textfield.TextInputLayout
 
 class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
 
@@ -42,8 +42,8 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
         val signUpData = SignUpData(
             email = binding.emailEditText.text.toString(),
             username = binding.usernameEditText.text.toString(),
-            password = binding.passwordEditText.text.toString(),
-            repeatPassword = binding.repeatPasswordEditText.text.toString(),
+            password = binding.passwordEditText.text.toCharArray(),
+            repeatPassword = binding.repeatPasswordEditText.text.toCharArray(),
         )
         viewModel.signUp(signUpData)
     }
@@ -63,8 +63,8 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
         binding.progressBar.visibility = if (state.showProgress) View.VISIBLE else View.INVISIBLE
     }
 
-    private fun observeShowSuccessSignUpMessageEvent() = viewModel.showSuccessSignUpMessageEvent.observeEvent(viewLifecycleOwner) {
-        Toast.makeText(requireContext(), R.string.sign_up_success, Toast.LENGTH_LONG).show()
+    private fun observeShowSuccessSignUpMessageEvent() = viewModel.showToastEvent.observeEvent(viewLifecycleOwner) {
+        Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
     }
 
     private fun fillError(input: TextInputLayout, @StringRes stringRes: Int) {
@@ -81,8 +81,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
         findNavController().popBackStack()
     }
 
-    private fun getEmailArgument(): String? {
+    private fun getEmailArgument(): String? = args.email
         //requiresArguments()
-        return args.email
-    }
+
 }

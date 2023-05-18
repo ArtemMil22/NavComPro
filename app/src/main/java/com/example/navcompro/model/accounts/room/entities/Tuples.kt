@@ -1,12 +1,8 @@
 package com.example.navcompro.model.accounts.room.entities
 
-import androidx.room.ColumnInfo
-import androidx.room.Embedded
-import androidx.room.Junction
-import androidx.room.Relation
+import androidx.room.*
 import com.example.navcompro.model.boxes.room.entities.AccountBoxSettingDbEntity
 import com.example.navcompro.model.boxes.room.entities.BoxDbEntity
-import com.example.navcompro.model.boxes.room.entities.SettingsTuples
 import com.example.navcompro.model.boxes.room.views.SettingDbView
 
 //  Create a tuple for fetching account id + account password.
@@ -23,8 +19,8 @@ data class AccountSignInTuple(
 //  Room which row you want to update and fields to be updated
 //  ('username' is this case).
 data class AccountUpdateUsernameTuple(
-    val id: Long,
-    val username: String,
+    @ColumnInfo(name = "id") @PrimaryKey val id: Long,
+    @ColumnInfo(name = "username") val username: String
 )
 
 // 17 Create an AccountAndEditedBoxesTuple class which joins queries all boxes which settings have
@@ -43,7 +39,7 @@ data class AccountAndEditBoxesTuple(
             entityColumn = "box_id"
         )
     )
-    val boxes: List<BoxDbEntity>,
+    val boxes: List<BoxDbEntity>
 )
 
 // 19 Create an AccountAndAllSettingsTuple + SettingAndBoxTuple classes (hint: both of them with

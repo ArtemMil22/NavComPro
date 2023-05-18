@@ -7,8 +7,11 @@ import com.example.navcompro.model.accounts.room.RoomAccountsRepository
 import com.example.navcompro.model.boxes.BoxesRepository
 import com.example.navcompro.model.boxes.room.RoomBoxesRepository
 import com.example.navcompro.model.room.AppDatabase
+import com.example.navcompro.model.room.MIGRATION_2_3
 import com.example.navcompro.model.settings.AppSettings
 import com.example.navcompro.model.settings.SharedPreferencesAppSettings
+import com.example.navcompro.utils.security.DefaultSecurityUtilsImpl
+import com.example.navcompro.utils.security.SecurityUtils
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
@@ -16,12 +19,15 @@ object Repositories {
 
     private lateinit var applicationContext: Context
 
+    val securityUtils: SecurityUtils by lazy {DefaultSecurityUtilsImpl()}
+
     //  Create an AppDatabase instance by using Room.databaseBuilder static method.
     //  Use createFromAssets method to initialize
     //  a new database from the pre-packaged SQLite file from assets
     private val database: AppDatabase by lazy<AppDatabase> {
         Room.databaseBuilder(applicationContext,AppDatabase::class.java,"database.db")
             .createFromAsset("initial_database.db")
+            .addMigrations(MIGRATION_2_3)
             .build()
     }
 
@@ -34,7 +40,7 @@ object Repositories {
     // --- repositories
 
     val accountsRepository: AccountsRepository by lazy {
-        RoomAccountsRepository(database.getAccountsDao(), appSettings, ioDispatcher)
+        RoomAccountsRepository(database.getAccountsDao(), appSettings, securityUtils, ioDispatcher)
     }
 
     val boxesRepository: BoxesRepository by lazy {

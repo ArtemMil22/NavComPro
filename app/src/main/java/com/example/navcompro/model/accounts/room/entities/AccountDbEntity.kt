@@ -14,14 +14,15 @@ import com.example.navcompro.utils.security.SecurityUtils
         Index("email", unique = true)
     ]
 )
- data class AccountDbEntity(
-    @ColumnInfo(name = "id") @PrimaryKey (autoGenerate = true) val id: Long,
-    @ColumnInfo (name = "email", collate = ColumnInfo.NOCASE) val email: String,
+data class AccountDbEntity(
+    @ColumnInfo(name = "id") @PrimaryKey(autoGenerate = true) val id: Long,
+    @ColumnInfo(name = "email", collate = ColumnInfo.NOCASE) val email: String,
     @ColumnInfo(name = "username") val username: String,
     @ColumnInfo(name = "hash") val hash: String,
-    @ColumnInfo(name = "salt", defaultValue = "") val salt : String,
-    @ColumnInfo (name = "created_at") val createdAt: Long
- ) {
+    @ColumnInfo(name = "salt", defaultValue = "") val salt: String,
+    @ColumnInfo(name = "created_at") val createdAt: Long,
+    @ColumnInfo(name = "phone") val phone: String?
+) {
 
     // маперы для быстрого преобразования данные сущности из табл
     // в стандартный аккаунт апп для публичного использования
@@ -36,8 +37,8 @@ import com.example.navcompro.utils.security.SecurityUtils
     // изначально данные попав в SingUpData, должно преобразоваться в сущность БД
     companion object {
         fun fromSignUpData(signUpData: SignUpData, securityUtils: SecurityUtils): AccountDbEntity {
-           val salt = securityUtils.generateSalt()
-            val hash = securityUtils.passwordToHash(signUpData.password,salt)
+            val salt = securityUtils.generateSalt()
+            val hash = securityUtils.passwordToHash(signUpData.password, salt)
             signUpData.password.fill('*')
             signUpData.repeatPassword.fill('*')
 
@@ -45,9 +46,10 @@ import com.example.navcompro.utils.security.SecurityUtils
                 id = 0,
                 email = signUpData.email,
                 username = signUpData.username,
-                hash =securityUtils.bytesToString(hash),
+                hash = securityUtils.bytesToString(hash),
                 salt = securityUtils.bytesToString(salt),
-                createdAt = System.currentTimeMillis()
+                createdAt = System.currentTimeMillis(),
+                phone = null
             )
         }
     }

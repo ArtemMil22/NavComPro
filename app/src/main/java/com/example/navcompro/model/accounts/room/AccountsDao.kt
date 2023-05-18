@@ -17,7 +17,7 @@ interface AccountsDao {
     @Update(entity = AccountDbEntity::class)
     suspend fun updateUserName(accountUpdateUsernameTuple: AccountUpdateUsernameTuple)
 
-    @Insert
+    @Insert(entity = AccountDbEntity::class)
     suspend fun createAccount(accountDbEntity: AccountDbEntity)
 
     @Query("SELECT * FROM accounts WHERE id = :accountId")

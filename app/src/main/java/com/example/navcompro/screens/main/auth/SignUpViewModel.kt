@@ -5,27 +5,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.navcompro.R
-import com.example.navcompro.model.AccountAlreadyExistsException
-import com.example.navcompro.model.EmptyFieldException
-import com.example.navcompro.model.Field
-import com.example.navcompro.model.PasswordMismatchException
+import com.example.navcompro.model.*
 import com.example.navcompro.model.accounts.AccountsRepository
 import com.example.navcompro.model.accounts.entities.SignUpData
-import com.example.navcompro.utils.MutableUnitLiveEvent
-import com.example.navcompro.utils.publishEvent
-import com.example.navcompro.utils.requireValue
-import com.example.navcompro.utils.share
+import com.example.navcompro.utils.*
 import kotlinx.coroutines.launch
 
 class SignUpViewModel(
     private val accountsRepository: AccountsRepository
 ) : ViewModel() {
 
-    private val _showSuccessSignUpMessageEvent = MutableUnitLiveEvent()
-    val showSuccessSignUpMessageEvent =_showSuccessSignUpMessageEvent.share()
-
     private val _goBackEvent = MutableUnitLiveEvent()
     val goBackEvent = _goBackEvent.share()
+
+    private val _showToastEvent = MutableLiveEvent<Int>()
+    val showToastEvent = _showToastEvent.share()
 
     private val _state = MutableLiveData(State())
     val state = _state.share()
@@ -43,6 +37,8 @@ class SignUpViewModel(
                 processPasswordMismatchException()
             } catch (e: AccountAlreadyExistsException) {
                 processAccountAlreadyExistsException()
+            } catch (e: StorageException) {
+                processStorageException()
             } finally {
                 hideProgress()
             }
@@ -79,7 +75,9 @@ class SignUpViewModel(
         _state.value = _state.requireValue().copy(signUpInProgress = false)
     }
 
-    private fun showSuccessSignUpMessage() = _showSuccessSignUpMessageEvent.publishEvent()
+    private fun showSuccessSignUpMessage() = _showToastEvent.publishEvent(R.string.sign_up_success)
+
+    private fun processStorageException() = _showToastEvent.publishEvent(R.string.storage_error)
 
     private fun goBack() = _goBackEvent.publishEvent()
 

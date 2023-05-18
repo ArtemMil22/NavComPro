@@ -3,15 +3,14 @@ package com.example.navcompro.screens.main.auth
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.navcompro.R
 import kotlinx.coroutines.launch
 import com.example.navcompro.model.AuthException
 import com.example.navcompro.model.EmptyFieldException
 import com.example.navcompro.model.Field
+import com.example.navcompro.model.StorageException
 import com.example.navcompro.model.accounts.AccountsRepository
-import com.example.navcompro.utils.MutableUnitLiveEvent
-import com.example.navcompro.utils.publishEvent
-import com.example.navcompro.utils.requireValue
-import com.example.navcompro.utils.share
+import com.example.navcompro.utils.*
 
 class SignInViewModel(
     private val accountsRepository: AccountsRepository
@@ -23,13 +22,13 @@ class SignInViewModel(
     private val _clearPasswordEvent = MutableUnitLiveEvent()
     val clearPasswordEvent = _clearPasswordEvent.share()
 
-    private val _showAuthErrorToastEvent = MutableUnitLiveEvent()
+    private val _showAuthErrorToastEvent = MutableLiveEvent<Int>()
     val showAuthToastEvent = _showAuthErrorToastEvent.share()
 
     private val _navigateToTabsEvent = MutableUnitLiveEvent()
     val navigateToTabsEvent = _navigateToTabsEvent.share()
 
-    fun signIn(email: String, password: String) = viewModelScope.launch {
+    fun signIn(email: String, password: CharArray) = viewModelScope.launch {
         showProgress()
         try {
             accountsRepository.signIn(email, password)
@@ -38,6 +37,8 @@ class SignInViewModel(
             processEmptyFieldException(e)
         } catch (e: AuthException) {
             processAuthException()
+        } catch (e: StorageException) {
+            processStorageException()
         }
     }
 
@@ -57,13 +58,20 @@ class SignInViewModel(
         showAuthErrorToast()
     }
 
+    private fun processStorageException() {
+        _showAuthErrorToastEvent.publishEvent(R.string.storage_error)
+        _state.value = _state.requireValue().copy(
+            signInInProgress = false
+        )
+    }
+
     private fun showProgress() {
         _state.value = State(signInInProgress = true)
     }
 
     private fun clearPasswordField() = _clearPasswordEvent.publishEvent()
 
-    private fun showAuthErrorToast() = _showAuthErrorToastEvent.publishEvent()
+    private fun showAuthErrorToast() = _showAuthErrorToastEvent.publishEvent(R.string.invalid_email_or_password)
 
     private fun launchTabsScreen() = _navigateToTabsEvent.publishEvent()
 
